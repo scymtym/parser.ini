@@ -1,0 +1,36 @@
+#+TITLE:       parser.ini README
+#+AUTHOR:      Jan Moringen
+#+EMAIL:       jmoringe@techfak.uni-bielefeld.de
+#+DESCRIPTION: Parser for ini-like configuration files with builder-based protocol.
+#+KEYWORDS:    parser, ini, config, esrap
+#+LANGUAGE:    en
+
+* Introduction
+  The =parser.ini= system provides a parser for the "ini-like" family
+  of configuration syntaxes. A builder-based protocol is used to
+  construct parse results.
+* Tutorial
+  To parse a string of configuration options and return the result as
+  a simple list-based structure, the =parse= function is called with
+  the symbol =list= instead of a more complicated builder object:
+#+BEGIN_SRC: lisp
+(parser.ini:parse "[section] option = value" 'list)
+=> ((:SECTION
+     ((:OPTION NIL :NAME ("option") :VALUE "value" :BOUNDS (10 . 24)))
+     :NAME ("section")
+     :BOUNDS (0 . 9)))
+#+END_SRC:
+
+  Syntactic variants are controlled via special variables (note ~:~
+  instead of ~=~):
+#+BEGIN_SRC: lisp
+(let ((parser.ini:*assignment-expression* :\:))
+  (parser.ini:parse "[section] option: value" 'list))
+#+END_SRC:
+* TODO Reference
+
+
+* Settings                                                         :noexport:
+
+#+OPTIONS: H:2 num:nil toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
