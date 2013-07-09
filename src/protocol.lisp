@@ -11,9 +11,9 @@
 (defgeneric parse (source builder)
   (:documentation
    "Parse the content of SOURCE as \"ini-like\" configuration options,
-construct a parse result using BUILDER and return it.
+    construct a parse result using BUILDER and return it.
 
-Signal a `ini-parse-error' when errors are encountered."))
+    Signal a `ini-parse-error' when errors are encountered."))
 
 ;; Default behavior
 
@@ -48,16 +48,16 @@ Signal a `ini-parse-error' when errors are encountered."))
 (defgeneric make-node (builder kind &rest args &key &allow-other-keys)
   (:documentation
    "Construct and return a node representing either a section (KIND
-is :section) or an option (KIND is :option) with properties
-ARGS. Typical properties in ARGS are
+    is :section) or an option (KIND is :option) with properties
+    ARGS. Typical properties in ARGS are
 
-  :name   (COMPONENT1 COMPONENT2 ...)
-  :value  STRING                      ; only when KIND is :option
-  :bounds (START . END)
+      :name   (COMPONENT1 COMPONENT2 ...)
+      :value  STRING                      ; only when KIND is :option
+      :bounds (START . END)
 
-."))
+    ."))
 
 (defgeneric add-child (builder parent child)
   (:documentation
    "Add CHILD to PARENT and return the resulting modified PARENT (or
-an appropriate fresh object)."))
+    an appropriate fresh object)."))

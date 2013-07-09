@@ -12,7 +12,7 @@
 
 (defvar *builder* nil
   "The builder object which should be used to construct the result
-objects of a successful parse.")
+   objects of a successful parse.")
 
 ;;; Syntax variation selectors
 
@@ -21,12 +21,12 @@ objects of a successful parse.")
 
 (defvar *assignment-expression* :=
   "Controls the accepted assignment syntax. The default is := which
-corresponds to \"=\".")
+   corresponds to \"=\".")
 
 (defvar *value-terminating-whitespace-expression* :all
   "Controls which kinds of whitespace terminate option values. The
-default is :all which corresponds to any whitespace terminating the
-value of an option.
+   default is :all which corresponds to any whitespace terminating the
+   value of an option.
 
-For some values of this variable, quoting has to be used when
-whitespace in option values is required.")
+   For some values of this variable, quoting has to be used when
+   whitespace in option values is required.")

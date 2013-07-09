@@ -13,18 +13,18 @@
              :reader   ini-parse-error-source
              :documentation
              "Stores the source string in which the parse error
-occurred.")
+              occurred.")
    (location :initarg  :location
              :type     (null cons)
              :reader   ini-parse-error-location
              :initform nil
              :documentation
              "Stores the location at which the parse error
-occurred. The format is
+              occurred. The format is
 
-  (START . END)
+                (START . END)
 
-where END can be nil"))
+              where END can be nil"))
   (:default-initargs
    :source (missing-required-initarg 'ini-parse-error :source))
   (:report

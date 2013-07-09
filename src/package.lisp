@@ -42,33 +42,33 @@
   (:documentation
    "This package provides the main entry point
 
-parse SOURCE BUILDER                [generic function]
+    parse SOURCE BUILDER                [generic function]
 
-  Parse the content of SOURCE as \"ini-like\" configuration options,
-  construct a parse result using BUILDER and return it.
+      Parse the content of SOURCE as \"ini-like\" configuration
+      options, construct a parse result using BUILDER and return it.
 
-The builder protocol consists of
+    The builder protocol consists of
 
-make-node BUILDER KIND &rest ARGS   [generic function]
+    make-node BUILDER KIND &rest ARGS   [generic function]
 
-  Create objects representing sections and options.
+      Create objects representing sections and options.
 
-add-child BUILDER PARENT CHILD      [generic function]
+    add-child BUILDER PARENT CHILD      [generic function]
 
-  Attach options to their containing sections.
+      Attach options to their containing sections.
 
-Parsing may signal
+    Parsing may signal
 
-ini-parse-error                     [condition]
+    ini-parse-error                     [condition]
 
-Syntactic variants can be controlled by binding the special
-variables
+    Syntactic variants can be controlled by binding the special
+    variables
 
-*assignment-expression*             [special variable]
+    *assignment-expression*             [special variable]
 
-  Controls assignment expression. Defaults to \"=\".
+      Controls assignment expression. Defaults to \"=\".
 
-*value-terminating-whitespace-expression* [special variable]
+    *value-terminating-whitespace-expression* [special variable]
 
-  Controls which whitespace terminates option values. By default, all
-  whitespace terminates option values.  "))
+      Controls which whitespace terminates option values. By default,
+      all whitespace terminates option values."))
