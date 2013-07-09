@@ -9,19 +9,21 @@
    #:cl
    #:let-plus
 
-   #:lift
+   #:fiveam
 
    #:parser.ini)
 
   (:export
-   #:parser.ini.root)
+   #:run-tests)
 
   (:documentation
    "This package contains unit tests of the parser.ini system."))
 
 (cl:in-package #:parser.ini.test)
 
-(deftestsuite parser.ini.root ()
-  ()
-  (:documentation
-   "Root unit test suite for the parser.ini system."))
+(def-suite parser.ini
+  :description
+  "Root unit test suite for the parser.ini system.")
+
+(defun run-tests ()
+  (run! 'parser.ini))

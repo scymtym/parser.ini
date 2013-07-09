@@ -65,7 +65,7 @@
   :description "Provides parsing of Ini expressions."
   :depends-on  (:alexandria
                 (:version :let-plus   "0.2")
-                (:version :lift       "1.7.1")
+                (:version :fiveam     "1.0")
 
                 (:version :parser.ini #.(version/string)))
   :components  ((:module     "test"
@@ -76,4 +76,4 @@
 
 (defmethod perform ((op     test-op)
                     (system (eql (find-system :parser.ini-test))))
-  (funcall (find-symbol "RUN-TESTS" :lift) :config :generic))
+  (funcall (find-symbol "RUN-TESTS" :parser.ini.test)))
