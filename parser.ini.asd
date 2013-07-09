@@ -54,7 +54,12 @@
                               (:file       "variables")
                               (:file       "protocol")
                               (:file       "grammar")
-                              (:file       "list-builder"))))
+                              (:file       "list-builder")))
+
+                (:static-file "README.org")
+
+                (:module     "examples"
+                 :components ((:static-file "etc.lisp"))))
   :in-order-to ((test-op (test-op :parser.ini-test))))
 
 (defsystem :parser.ini-test
