@@ -6,6 +6,17 @@
 
 (cl:in-package #:parser.ini)
 
+#+esrap.grammar-class
+(defgrammar #:parser.ini
+  #+later (:use
+   #:whitespace
+   #:literals)
+  (:documentation
+   "Grammar for parsing \"ini-like\" configuration files. Some aspects
+    of the grammar can be customized by binding special variables. "))
+#+esrap.grammar-class
+(in-grammar #:parser.ini)
+
 (defrule whitespace
     (+ (or #\Space #\Tab #\Newline))
   (:constant nil))

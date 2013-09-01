@@ -12,6 +12,8 @@
    #:more-conditions)
 
   (:import-from #:esrap
+   #+esrap.grammar-class #:defgrammar
+   #+esrap.grammar-class #:in-grammar
    #:defrule #:&bounds
    #:?
    #:text)

@@ -35,7 +35,9 @@
 
 (defmethod parse ((source string) (builder t))
   (let ((*builder* builder))
-    (esrap:parse 'ini source)))
+    (esrap:parse 'ini source
+                 #+esrap.grammar-class :grammar
+                 #+esrap.grammar-class '#:parser.ini)))
 
 (defmethod parse ((source stream) (builder t))
   (parse (read-stream-content-into-string source) builder))
