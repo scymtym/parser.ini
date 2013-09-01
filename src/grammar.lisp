@@ -83,7 +83,7 @@
     (or value-whitespace/all value-whitespace/newline))
 
 (defrule value
-    (+ (or quoted (not (or #\# #\[ value-whitespace))))
+    (+ (or quoted (not (or comment section value-whitespace))))
   (:text t))
 
 (defrule option
