@@ -38,9 +38,10 @@
         :bounds (0 . 5))))
 
      ;; Fancy escaping in names
-     ("[foo.\"b\\az.fe\\\"z\"] bar\".whoop.di do\"o = 1"
+     ("[foo.\"b\\az.fe\\\"z\"] frob.bar\".whoop.di do\"o = 1"
       ((:section
-        ((:option () :name ("bar.whoop.di doo") :value "1" :bounds (19 . 41)))
+        ((:option () :name ("frob" "bar.whoop.di doo") :value "1"
+          :bounds (19 . 46)))
         :name   ("foo" "b\\az.fe\"z")
         :bounds (0 . 18))))
 
@@ -49,3 +50,30 @@
       ((:section
         ((:option () :name ("bar") :value "wh\"o\\op di doo" :bounds (0 . 26)))
         :name ()))))))
+
+(test grammar.name-component-separator
+  "Tests controlling name component separator via special variable."
+
+  (mapc
+   (lambda+ ((separator input expected))
+     (let+ (((&flet do-it ()
+               (let ((*name-component-separator* separator))
+                 (parse input 'list)))))
+       (case expected
+         (ini-parse-error (signals ini-parse-error (do-it)))
+         (t               (is (equal expected (do-it)))))))
+
+   '((nil "[foo.bar] baz.fez = 1"
+      ((:section
+        ((:option () :name ("baz.fez") :value "1" :bounds (10 . 21)))
+        :name ("foo.bar") :bounds (0 . 9))))
+
+     (:. "[foo.bar] baz.fez = 1"
+      ((:section
+        ((:option () :name ("baz" "fez") :value "1" :bounds (10 . 21)))
+        :name ("foo" "bar") :bounds (0 . 9))))
+
+     (:\: "[foo:bar] baz.fez = 1"
+      ((:section
+        ((:option () :name ("baz.fez") :value "1" :bounds (10 . 21)))
+        :name ("foo" "bar") :bounds (0 . 9)))))))

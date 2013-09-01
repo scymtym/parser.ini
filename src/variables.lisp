@@ -16,8 +16,13 @@
 
 ;;; Syntax variation selectors
 
-(declaim (special *assignment-expression*
+(declaim (special *name-component-separator*
+                  *assignment-expression*
                   *value-terminating-whitespace-expression*))
+
+(defvar *name-component-separator* :.
+  "Controls the syntax for separating name components. The default
+   is :. which corresponds to \".\".")
 
 (defvar *assignment-expression* :=
   "Controls the accepted assignment syntax. The default is := which

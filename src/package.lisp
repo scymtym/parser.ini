@@ -27,6 +27,7 @@
   (:export
    #:*builder*
 
+   #:*name-component-separator*
    #:*assignment-expression*
    #:*value-terminating-whitespace-expression*)
 

@@ -20,7 +20,7 @@
 (defparameter +version-major+ 0
   "Major component of version number.")
 
-(defparameter +version-minor+ 1
+(defparameter +version-minor+ 2
   "Minor component of version number.")
 
 (defparameter +version-revision+ 0
@@ -61,6 +61,11 @@
                 (:module     "examples"
                  :components ((:static-file "etc.lisp"))))
   :in-order-to ((test-op (test-op :parser.ini-test))))
+
+(defmethod perform :after ((operation load-op)
+                           (component (eql (find-system :parser.ini))))
+  ;; Since version 0.2
+  (pushnew :parser.ini.name-component-separator *features*))
 
 (defsystem :parser.ini-test
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"

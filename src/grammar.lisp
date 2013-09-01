@@ -26,12 +26,24 @@
 
 ;; Names
 
+(defrule name-component-separator/.
+    #\.
+  (:when (eq *name-component-separator* :.)))
+
+(defrule |name-component-separator/:|
+    #\:
+  (:when (eq *name-component-separator* :|:|)))
+
+(defrule name-component-separator
+    (or name-component-separator/. |name-component-separator/:|))
+
 (defrule name-component
-    (+ (or quoted (not (or #\. #\] assignment whitespace))))
+    (+ (or quoted (not (or name-component-separator #\] assignment whitespace))))
   (:text t))
 
 (defrule name
-    (and name-component (* (and #\. name-component)))
+    (and name-component
+         (* (and name-component-separator name-component)))
   (:destructure (first rest)
     (cons first (mapcar #'second rest))))
 
