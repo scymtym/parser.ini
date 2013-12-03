@@ -1,6 +1,6 @@
 ;;;; grammar.lisp --- Grammar definition of the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2013 Jan Moringen
+;;;; Copyright (C) 2013, 2015 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -154,13 +154,17 @@
     (* (or comment whitespace section option))
   (:lambda (value)
     ;; Add all options to their respective containing sections.
-    (let+ ((sections (make-hash-table :test #'equal))
+    (let+ ((sections (make-array 0 :adjustable t :fill-pointer 0))
+           (section-names (make-hash-table :test #'equal))
            ((&flet+ ensure-section ((name bounds))
-              (ensure-gethash
-               name sections (apply #'make-node *builder* :section
-                                    :name   name
-                                    (when bounds
-                                      (list :bounds bounds))))))
+              (aref sections
+                    (ensure-gethash name section-names
+                                    (vector-push-extend
+                                     (apply #'make-node *builder* :section
+                                            :name   name
+                                            (when bounds
+                                              (list :bounds bounds)))
+                                     sections)))))
            (current-section-info '(() nil)))
       (mapc (lambda+ ((&optional kind node))
               (ecase kind
@@ -169,4 +173,4 @@
                 (:option  (let ((section (ensure-section current-section-info)))
                             (add-child *builder* section node)))))
             value)
-      (hash-table-values sections))))
+      (coerce sections 'list))))

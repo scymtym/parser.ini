@@ -1,6 +1,6 @@
 ;;;; grammar.lisp --- Unit tests for the ini grammar.
 ;;;;
-;;;; Copyright (C) 2013 Jan Moringen
+;;;; Copyright (C) 2013, 2015 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -49,7 +49,26 @@
      ("bar = \"wh\\\"o\\\\op \"di\" doo\""
       ((:section
         ((:option () :name ("bar") :value "wh\"o\\op di doo" :bounds (0 . 26)))
-        :name ()))))))
+        :name ())))
+
+     ;; Multiple lines
+     ("a.b=1
+       a=2
+       # comment
+       [a]
+       c = 3
+       [d]
+       e = 4"
+      ((:section
+        ((:option () :name ("a" "b") :value "1" :bounds (0 . 5))
+         (:option () :name ("a") :value "2" :bounds (13 . 16)))
+        :name ())
+       (:section
+        ((:option () :name ("c") :value "3" :bounds (52 . 57)))
+        :name ("a") :bounds (41 . 44))
+       (:section
+        ((:option () :name ("e") :value "4" :bounds (76 . 81)))
+        :name ("d") :bounds (65 . 68)))))))
 
 (test grammar.name-component-separator
   "Tests controlling name component separator via special variable."
