@@ -30,7 +30,7 @@
    #:*builder*
 
    #:*name-component-separator*
-   #:*assignment-expression*
+   #:*assignment-operator*
    #:*value-terminating-whitespace-expression*)
 
   ;; Parser protocol

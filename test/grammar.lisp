@@ -68,12 +68,12 @@
         ((:option () :name ("baz.fez") :value "1" :bounds (10 . 21)))
         :name ("foo.bar") :bounds (0 . 9))))
 
-     (:. "[foo.bar] baz.fez = 1"
+     (#\. "[foo.bar] baz.fez = 1"
       ((:section
         ((:option () :name ("baz" "fez") :value "1" :bounds (10 . 21)))
         :name ("foo" "bar") :bounds (0 . 9))))
 
-     (:\: "[foo:bar] baz.fez = 1"
+     (#\: "[foo:bar] baz.fez = 1"
       ((:section
         ((:option () :name ("baz.fez") :value "1" :bounds (10 . 21)))
         :name ("foo" "bar") :bounds (0 . 9)))))))

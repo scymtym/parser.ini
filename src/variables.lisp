@@ -17,16 +17,19 @@
 ;;; Syntax variation selectors
 
 (declaim (special *name-component-separator*
-                  *assignment-expression*
+                  *assignment-operator*
                   *value-terminating-whitespace-expression*))
 
-(defvar *name-component-separator* :.
+(defvar *name-component-separator* #\.
   "Controls the syntax for separating name components. The default
-   is :. which corresponds to \".\".")
+   is the character \".\".
 
-(defvar *assignment-expression* :=
-  "Controls the accepted assignment syntax. The default is := which
-   corresponds to \"=\".")
+   Note the value nil corresponds to \"no component separator\" which
+   leads to names not being split into components.")
+
+(defvar *assignment-operator* #\=
+  "Controls the accepted assignment syntax. The default is the
+   character \"=\".")
 
 (defvar *value-terminating-whitespace-expression* :all
   "Controls which kinds of whitespace terminate option values. The

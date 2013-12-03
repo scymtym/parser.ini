@@ -9,7 +9,7 @@
 ;; * "#" for whole-line comments
 ;; * "=" for assignments
 ;; * all whitespace /seems/ to delimit values
-(let ((parser.ini:*assignment-expression* :=)
+(let ((parser.ini:*assignment-operator*                     #\=)
       (parser.ini:*value-terminating-whitespace-expression* :all))
   (parser.ini:parse #P"/etc/colord.conf" 'list))
 
@@ -20,6 +20,6 @@
 ;; * "#" for whole-line comments
 ;; * ":" for assignments
 ;; * newlines to delimit values
-(let ((parser.ini:*assignment-expression* :\:)
-      (parser.ini:*value-terminating-whitespace-expression* :newline))
+(let ((parser.ini:*assignment-operator*                     #\:)
+      (parser.ini:*value-terminating-whitespace-expression* #\Newline))
   (parser.ini:parse #P"/etc/debconf.conf" 'list))
