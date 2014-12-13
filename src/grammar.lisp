@@ -1,6 +1,6 @@
 ;;;; grammar.lisp --- Grammar definition of the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2013, 2015 Jan Moringen
+;;;; Copyright (C) 2013, 2014, 2015 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -68,9 +68,10 @@
         #+esrap.function-terminals name-component-separator/expression))
 
 (defrule name-component
-    (+ (or quoted (not (or name-component-separator #\]
-                           assignment-operator
-                           whitespace))))
+    (+ (or quoted (not (or comment whitespace
+                           name-component-separator
+                           #\[ #\]
+                           assignment-operator))))
   (:text t))
 
 (defrule name
@@ -143,10 +144,10 @@
     (and name (and (? whitespace) assignment-operator (? whitespace)) value)
   (:destructure (name operator value &bounds start end)
     (declare (ignore operator))
-    (list :option (make-node *builder* :option
-                             :name   name
-                             :value  value
-                             :bounds (cons start end)))))
+    (list :option (node* (:option
+                          :name   name
+                          :value  value
+                          :bounds (cons start end))))))
 
 ;; Entry point
 
@@ -160,8 +161,8 @@
               (aref sections
                     (ensure-gethash name section-names
                                     (vector-push-extend
-                                     (apply #'make-node *builder* :section
-                                            :name   name
+                                     (apply #'make-node* :section
+                                            :name name
                                             (when bounds
                                               (list :bounds bounds)))
                                      sections)))))
@@ -171,6 +172,6 @@
                 ((nil)    ) ; comment and whitespace
                 (:section (setf current-section-info node))
                 (:option  (let ((section (ensure-section current-section-info)))
-                            (add-child *builder* section node)))))
+                            (relate* :section-option section node)))))
             value)
-      (coerce sections 'list))))
+      (map 'list (curry #'finish-node* :section) sections))))

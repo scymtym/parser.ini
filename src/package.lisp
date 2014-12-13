@@ -1,6 +1,6 @@
 ;;;; package.lisp --- Package definition for parser.ini system.
 ;;;;
-;;;; Copyright (C) 2013 Jan Moringen
+;;;; Copyright (C) 2013, 2014, 2015 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -9,7 +9,9 @@
    #:cl
    #:alexandria
    #:let-plus
-   #:more-conditions)
+   #:more-conditions
+
+   #:architecture.builder-protocol)
 
   (:import-from #:esrap
    #+esrap.grammar-class #:defgrammar
@@ -27,8 +29,6 @@
 
   ;; Variables
   (:export
-   #:*builder*
-
    #:*name-component-separator*
    #:*assignment-operator*
    #:*value-terminating-whitespace-expression*)
@@ -36,11 +36,6 @@
   ;; Parser protocol
   (:export
    #:parse)
-
-  ;; Builder protocol
-  (:export
-   #:make-node
-   #:add-child)
 
   (:documentation
    "This package provides the main entry point
@@ -52,13 +47,15 @@
 
     The builder protocol consists of
 
-    make-node BUILDER KIND &rest ARGS   [generic function]
+    architecture.builder-protocol:make-node BUILDER KIND &rest ARGS [generic function]
 
-      Create objects representing sections and options.
+      Create objects representing sections and options with
+      KIND :section and :option respectively.
 
-    add-child BUILDER PARENT CHILD      [generic function]
+    architecture.builder-protocol:relate BUILDER RELATION LEFT RIGHT &rest ARGS [generic function]
 
-      Attach options to their containing sections.
+      Attach options to their containing sections with
+      relation :section-option.
 
     Parsing may signal
 

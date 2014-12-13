@@ -1,18 +1,10 @@
 ;;;; variables.lisp --- Variables used by the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013 Jan Moringen
+;;;; Copyright (C) 2012, 2013, 2014, 2015 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
 (cl:in-package #:parser.ini)
-
-;;; Builder
-
-(declaim (special *builder*))
-
-(defvar *builder* nil
-  "The builder object which should be used to construct the result
-   objects of a successful parse.")
 
 ;;; Syntax variation selectors
 

@@ -1,6 +1,6 @@
 ;;;; protocol.lisp --- Protocol provided by the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013 Jan Moringen
+;;;; Copyright (C) 2012, 2013, 2014, 2015 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -44,22 +44,3 @@
 
 (defmethod parse ((source pathname) (builder t))
   (parse (read-file-into-string source) builder))
-
-;;; Builder Protocol
-
-(defgeneric make-node (builder kind &rest args &key &allow-other-keys)
-  (:documentation
-   "Construct and return a node representing either a section (KIND
-    is :section) or an option (KIND is :option) with properties
-    ARGS. Typical properties in ARGS are
-
-      :name   (COMPONENT1 COMPONENT2 ...)
-      :value  STRING                      ; only when KIND is :option
-      :bounds (START . END)
-
-    ."))
-
-(defgeneric add-child (builder parent child)
-  (:documentation
-   "Add CHILD to PARENT and return the resulting modified PARENT (or
-    an appropriate fresh object)."))

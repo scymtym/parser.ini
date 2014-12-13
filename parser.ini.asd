@@ -1,6 +1,6 @@
 ;;;; parser.ini.asd --- System definition for the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013 Jan Moringen
+;;;; Copyright (C) 2012, 2013, 2014, 2015 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -20,7 +20,7 @@
 (defparameter +version-major+ 0
   "Major component of version number.")
 
-(defparameter +version-minor+ 2
+(defparameter +version-minor+ 3
   "Minor component of version number.")
 
 (defparameter +version-revision+ 0
@@ -43,10 +43,11 @@
   :license     "LLGPLv3" ; see COPYING file for details.
   :description "Provides parsing of Ini expressions."
   :depends-on  (:alexandria
-                (:version :let-plus        "0.2")
-                (:version :more-conditions "0.1.0")
+                (:version :let-plus                      "0.2")
+                (:version :more-conditions               "0.1.0")
 
-                (:version :esrap           "0.9"))
+                (:version :esrap                         "0.9")
+                (:version :architecture.builder-protocol "0.1"))
   :encoding    :utf-8
   :components  ((:module     "src"
                  :serial     t
@@ -54,8 +55,7 @@
                               (:file       "conditions")
                               (:file       "variables")
                               (:file       "protocol")
-                              (:file       "grammar")
-                              (:file       "list-builder")))
+                              (:file       "grammar")))
 
                 (:static-file "README.org")
 
@@ -66,7 +66,9 @@
 (defmethod perform :after ((operation load-op)
                            (component (eql (find-system :parser.ini))))
   ;; Since version 0.2
-  (pushnew :parser.ini.name-component-separator *features*))
+  (pushnew :parser.ini.name-component-separator *features*)
+  ;; Since version 0.3
+  (pushnew :parser.ini.builder-protocol         *features*))
 
 (defsystem :parser.ini-test
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
