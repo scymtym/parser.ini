@@ -9,6 +9,10 @@
   The =parser.ini= system provides a parser for the "ini-like" family
   of configuration syntaxes. A builder-based protocol is used to
   construct parse results.
+
+  #+ATTR_HTML: :alt "build status image" :title Build Status :align right
+  [[https://travis-ci.org/scymtym/parser.ini][https://travis-ci.org/scymtym/parser.ini.svg]]
+
 * Tutorial
   To parse a string of configuration options and return the result as
   a simple list-based structure, the =parse= function is called with
