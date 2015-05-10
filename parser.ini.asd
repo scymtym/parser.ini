@@ -40,13 +40,14 @@
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :maintainer  "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :version     #.(version/string)
-  :license     "LLGPLv3; see COPYING file for details."
+  :license     "LLGPLv3" ; see COPYING file for details.
   :description "Provides parsing of Ini expressions."
   :depends-on  (:alexandria
                 (:version :let-plus        "0.2")
                 (:version :more-conditions "0.1.0")
 
                 (:version :esrap           "0.9"))
+  :encoding    :utf-8
   :components  ((:module     "src"
                  :serial     t
                  :components ((:file       "package")
@@ -71,13 +72,14 @@
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :maintainer  "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :version     #.(version/string)
-  :license     "LLGPLv3; see COPYING file for details."
+  :license     "LLGPLv3" ; see COPYING file for details.
   :description "Provides parsing of Ini expressions."
   :depends-on  (:alexandria
                 (:version :let-plus   "0.2")
                 (:version :fiveam     "1.0")
 
                 (:version :parser.ini #.(version/string)))
+  :encoding    :utf-8
   :components  ((:module     "test"
                  :serial     t
                  :components ((:file       "package")
