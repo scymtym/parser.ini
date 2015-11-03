@@ -26,15 +26,16 @@
      ;; Comment after value
      ("foo = 1 # comment"
       ((:section
-        (:section-option ((:option () :name ("foo") :value "1" :bounds (0 . 7))))
+        (:section-option (((:option () :name ("foo") :value "1" :bounds (0 . 7))
+                           . ())))
         :name ())))
 
      ;; Repeated section
      ("[foo] bar = 1 [foo] baz = 2"
       ((:section
         (:section-option
-         ((:option () :name ("bar") :value "1" :bounds (6 . 13))
-          (:option () :name ("baz") :value "2" :bounds (20 . 27))))
+         (((:option () :name ("bar") :value "1" :bounds (6 . 13)) . ())
+          ((:option () :name ("baz") :value "2" :bounds (20 . 27)) . ())))
         :name   ("foo")
         :bounds (0 . 5))))
 
@@ -42,8 +43,9 @@
      ("[foo.\"b\\az.fe\\\"z\"] frob.bar\".whoop.di do\"o = 1"
       ((:section
         (:section-option
-         ((:option () :name ("frob" "bar.whoop.di doo") :value "1"
-                      :bounds (19 . 46))))
+         (((:option () :name ("frob" "bar.whoop.di doo") :value "1"
+                    :bounds (19 . 46))
+           . ())))
         :name   ("foo" "b\\az.fe\"z")
         :bounds (0 . 18))))
 
@@ -51,7 +53,8 @@
      ("bar = \"wh\\\"o\\\\op \"di\" doo\""
       ((:section
         (:section-option
-         ((:option () :name ("bar") :value "wh\"o\\op di doo" :bounds (0 . 26))))
+         (((:option () :name ("bar") :value "wh\"o\\op di doo" :bounds (0 . 26))
+           . ())))
         :name ())))
 
      ;; Multiple lines
@@ -64,16 +67,16 @@
        e = 4"
       ((:section
         (:section-option
-         ((:option () :name ("a" "b") :value "1" :bounds (0 . 5))
-          (:option () :name ("a") :value "2" :bounds (13 . 16))))
+         (((:option () :name ("a" "b") :value "1" :bounds (0 . 5)) . ())
+          ((:option () :name ("a") :value "2" :bounds (13 . 16)) . ())))
         :name ())
        (:section
         (:section-option
-         ((:option () :name ("c") :value "3" :bounds (52 . 57))))
+         (((:option () :name ("c") :value "3" :bounds (52 . 57)) . ())))
         :name ("a") :bounds (41 . 44))
        (:section
         (:section-option
-         ((:option () :name ("e") :value "4" :bounds (76 . 81))))
+         (((:option () :name ("e") :value "4" :bounds (76 . 81)) . ())))
         :name ("d") :bounds (65 . 68)))))))
 
 (test grammar.name-component-separator
@@ -91,17 +94,17 @@
    '((nil "[foo.bar] baz.fez = 1"
       ((:section
         (:section-option
-         ((:option () :name ("baz.fez") :value "1" :bounds (10 . 21))))
+         (((:option () :name ("baz.fez") :value "1" :bounds (10 . 21)) . ())))
         :name ("foo.bar") :bounds (0 . 9))))
 
      (#\. "[foo.bar] baz.fez = 1"
       ((:section
         (:section-option
-         ((:option () :name ("baz" "fez") :value "1" :bounds (10 . 21))))
+         (((:option () :name ("baz" "fez") :value "1" :bounds (10 . 21)) . ())))
         :name ("foo" "bar") :bounds (0 . 9))))
 
      (#\: "[foo:bar] baz.fez = 1"
       ((:section
         (:section-option
-         ((:option () :name ("baz.fez") :value "1" :bounds (10 . 21))))
+         (((:option () :name ("baz.fez") :value "1" :bounds (10 . 21)) . ())))
         :name ("foo" "bar") :bounds (0 . 9)))))))
