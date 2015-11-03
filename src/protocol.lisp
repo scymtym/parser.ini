@@ -34,7 +34,7 @@
          source builder))
 
 (defmethod parse ((source string) (builder t))
-  (let ((*builder* builder))
+  (let ((architecture.builder-protocol:*builder* builder))
     (esrap:parse 'ini source
                  #+esrap.grammar-class :grammar
                  #+esrap.grammar-class '#:parser.ini)))

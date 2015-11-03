@@ -144,10 +144,11 @@
     (and name (and (? whitespace) assignment-operator (? whitespace)) value)
   (:destructure (name operator value &bounds start end)
     (declare (ignore operator))
-    (list :option (node* (:option
-                          :name   name
-                          :value  value
-                          :bounds (cons start end))))))
+    (list :option (architecture.builder-protocol:node*
+                      (:option
+                       :name   name
+                       :value  value
+                       :bounds (cons start end))))))
 
 ;; Entry point
 
@@ -161,7 +162,8 @@
               (aref sections
                     (ensure-gethash name section-names
                                     (vector-push-extend
-                                     (apply #'make-node* :section
+                                     (apply #'architecture.builder-protocol:make-node*
+                                            :section
                                             :name name
                                             (when bounds
                                               (list :bounds bounds)))
@@ -172,6 +174,8 @@
                 ((nil)    ) ; comment and whitespace
                 (:section (setf current-section-info node))
                 (:option  (let ((section (ensure-section current-section-info)))
-                            (relate* :section-option section node)))))
+                            (architecture.builder-protocol:relate*
+                             :section-option section node)))))
             value)
-      (map 'list (curry #'finish-node* :section) sections))))
+      (map 'list (curry #'architecture.builder-protocol:finish-node* :section)
+           sections))))

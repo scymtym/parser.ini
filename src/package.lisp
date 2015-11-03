@@ -9,9 +9,7 @@
    #:cl
    #:alexandria
    #:let-plus
-   #:more-conditions
-
-   #:architecture.builder-protocol)
+   #:more-conditions)
 
   (:import-from #:esrap
    #+esrap.grammar-class #:defgrammar
