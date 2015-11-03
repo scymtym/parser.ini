@@ -15,6 +15,9 @@ install:
   - curl -o quicklisp.lisp "${QUICKLISP_DOWNLOAD_URL}"
   - ./cl -L quicklisp.lisp '(quicklisp-quickstart:install :path "quicklisp/")'
 
+  - ( cd quicklisp/local-projects
+      && git clone http://github.com/scymtym/architecture.builder-protocol )
+
 script:
   - ./cl
       -S '(:source-registry (:directory "'$(pwd)'") :ignore-inherited-configuration)'
