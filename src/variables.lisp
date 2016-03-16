@@ -1,16 +1,12 @@
 ;;;; variables.lisp --- Variables used by the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013, 2014, 2015 Jan Moringen
+;;;; Copyright (C) 2012, 2013, 2014, 2015, 2016 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
 (cl:in-package #:parser.ini)
 
 ;;; Syntax variation selectors
-
-(declaim (special *name-component-separator*
-                  *assignment-operator*
-                  *value-terminating-whitespace-expression*))
 
 (defvar *name-component-separator* #\.
   "Controls the syntax for separating name components. The default
