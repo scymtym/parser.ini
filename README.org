@@ -17,20 +17,35 @@
   To parse a string of configuration options and return the result as
   a simple list-based structure, the =parse= function is called with
   the symbol =list= instead of a more complicated builder object:
-#+BEGIN_SRC: lisp
-(parser.ini:parse "[section] option = value" 'list)
-=> ((:SECTION
-     ((:OPTION NIL :NAME ("option") :VALUE "value" :BOUNDS (10 . 24)))
-     :NAME ("section")
-     :BOUNDS (0 . 9)))
-#+END_SRC:
+  #+BEGIN_SRC lisp :results value code :exports both
+  (parser.ini:parse "[section] option = value" 'list)
+  #+END_SRC
+
+  #+RESULTS:
+  #+BEGIN_SRC lisp
+
+  ((:SECTION
+    (:SECTION-OPTION
+     (((:OPTION NIL :NAME ("option") :VALUE "value" :BOUNDS (10 . 24)))))
+    :NAME ("section") :BOUNDS (0 . 9)))
+  #+END_SRC
 
   Syntactic variants are controlled via special variables (note ~:~
   instead of ~=~):
-#+BEGIN_SRC: lisp
-(let ((parser.ini:*assignment-expression* :\:))
-  (parser.ini:parse "[section] option: value" 'list))
-#+END_SRC:
+  #+BEGIN_SRC lisp :results value code :exports both
+  (let ((parser.ini:*assignment-operator* #\:))
+    (parser.ini:parse "[section] option: value" 'list))
+  #+END_SRC
+
+  #+RESULTS:
+  #+BEGIN_SRC lisp
+
+  ((:SECTION
+    (:SECTION-OPTION
+     (((:OPTION NIL :NAME ("option") :VALUE "value" :BOUNDS (10 . 23)))))
+    :NAME ("section") :BOUNDS (0 . 9)))
+  #+END_SRC
+
 * TODO Reference
 
 
