@@ -1,45 +1,13 @@
 ;;;; parser.ini.asd --- System definition for the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013, 2014, 2015 Jan Moringen
+;;;; Copyright (C) 2012, 2013, 2014, 2015, 2016 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
-
-(cl:defpackage #:parser.ini-system
-  (:use
-   #:cl
-   #:asdf)
-
-  (:export
-   #:version/list
-   #:version/string))
-
-(cl:in-package #:parser.ini-system)
-
-;;; Version stuff
-
-(defparameter +version-major+ 0
-  "Major component of version number.")
-
-(defparameter +version-minor+ 3
-  "Minor component of version number.")
-
-(defparameter +version-revision+ 0
-  "Revision component of version number.")
-
-(defun version/list ()
-  "Return a version of the form (MAJOR MINOR REVISION)."
-  (list +version-major+ +version-minor+ +version-revision+))
-
-(defun version/string ()
-  "Return a version string of the form \"MAJOR.MINOR.REVISION\"."
-  (format nil "~{~A.~A.~A~}" (version/list)))
-
-;;; System definitions
 
 (defsystem :parser.ini
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :maintainer  "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
-  :version     #.(version/string)
+  :version     (:read-file-form "version-string.sexp")
   :license     "LLGPLv3" ; see COPYING file for details.
   :description "Provides parsing of Ini expressions."
   :depends-on  (:alexandria
@@ -73,14 +41,14 @@
 (defsystem :parser.ini-test
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :maintainer  "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
-  :version     #.(version/string)
+  :version     (:read-file-form "version-string.sexp")
   :license     "LLGPLv3" ; see COPYING file for details.
   :description "Provides parsing of Ini expressions."
   :depends-on  (:alexandria
                 (:version :let-plus   "0.2")
                 (:version :fiveam     "1.0")
 
-                (:version :parser.ini #.(version/string)))
+                (:version :parser.ini (:read-file-form "version-string.sexp")))
   :encoding    :utf-8
   :components  ((:module     "test"
                  :serial     t
