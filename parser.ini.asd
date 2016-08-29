@@ -46,7 +46,7 @@
   :description "Provides parsing of Ini expressions."
   :depends-on  (:alexandria
                 (:version :let-plus   "0.2")
-                (:version :fiveam     "1.0")
+                (:version :fiveam     "1.3")
 
                 (:version :parser.ini (:read-file-form "version-string.sexp")))
   :encoding    :utf-8
