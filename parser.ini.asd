@@ -58,4 +58,4 @@
 
 (defmethod perform ((op     test-op)
                     (system (eql (find-system :parser.ini-test))))
-  (funcall (find-symbol "RUN-TESTS" :parser.ini.test)))
+  (uiop:symbol-call '#:parser.ini.test '#:run-tests))
