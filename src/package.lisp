@@ -70,18 +70,3 @@
 
       Controls which whitespace terminates option values. By default,
       all whitespace terminates option values."))
-
-(cl:in-package #:parser.ini)
-
-;; TODO until alexandria provides these
-#.(unless (find-symbol (string '#:read-stream-content-into-byte-vector)
-                       '#:alexandria)
-    '(defun read-stream-content-into-string (stream &key (buffer-size 4096))
-      "Return the \"contents\" of STREAM as a fresh string."
-      (let ((*print-pretty* nil))
-        (with-output-to-string (datum)
-          (let ((buffer (make-array buffer-size :element-type 'character)))
-            (loop
-               :for bytes-read = (read-sequence buffer stream)
-               :do (write-sequence buffer datum :start 0 :end bytes-read)
-               :while (= bytes-read buffer-size)))))))
