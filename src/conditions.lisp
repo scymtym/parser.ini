@@ -1,6 +1,6 @@
 ;;;; conditions.lisp --- Conditions used by the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2013 Jan Moringen
+;;;; Copyright (C) 2013, 2016 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -15,7 +15,7 @@
              "Stores the source string in which the parse error
               occurred.")
    (location :initarg  :location
-             :type     (null cons)
+             :type     (or null cons)
              :reader   ini-parse-error-location
              :initform nil
              :documentation
