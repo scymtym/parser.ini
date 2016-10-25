@@ -1,6 +1,6 @@
 ;;;; protocol.lisp --- Protocol provided by the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013, 2014, 2015 Jan Moringen
+;;;; Copyright (C) 2012, 2013, 2014, 2015, 2016 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -19,8 +19,8 @@
 
 (define-condition-translating-method parse ((source t) (builder t))
   ;; When an `esrap-error' is signaled, the innermost `parse' method
-  ;; is specialized on `string'. It is therefore OK to assign to
-  ;; SOURCE to the source slot of the condition.
+  ;; is specialized on `string'. It is therefore OK to assign SOURCE
+  ;; to the source slot of the condition.
   ((esrap:esrap-error ini-parse-error
     :var condition)
    :source   source
