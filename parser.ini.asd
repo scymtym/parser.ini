@@ -31,13 +31,6 @@
                  :components ((:static-file "etc.lisp"))))
   :in-order-to ((test-op (test-op :parser.ini-test))))
 
-(defmethod perform :after ((operation load-op)
-                           (component (eql (find-system :parser.ini))))
-  ;; Since version 0.2
-  (pushnew :parser.ini.name-component-separator *features*)
-  ;; Since version 0.3
-  (pushnew :parser.ini.builder-protocol         *features*))
-
 (defsystem :parser.ini-test
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :maintainer  "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
