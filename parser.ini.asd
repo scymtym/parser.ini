@@ -29,9 +29,9 @@
 
                 (:module     "examples"
                  :components ((:static-file "etc.lisp"))))
-  :in-order-to ((test-op (test-op :parser.ini-test))))
+  :in-order-to ((test-op (test-op :parser.ini/test))))
 
-(defsystem :parser.ini-test
+(defsystem :parser.ini/test
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :maintainer  "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
   :version     (:read-file-form "version-string.sexp")
@@ -50,5 +50,5 @@
                               (:file       "grammar")))))
 
 (defmethod perform ((op     test-op)
-                    (system (eql (find-system :parser.ini-test))))
+                    (system (eql (find-system :parser.ini/test))))
   (uiop:symbol-call '#:parser.ini.test '#:run-tests))
