@@ -6,6 +6,7 @@
 #+LANGUAGE:    en
 
 * Introduction
+
   The =parser.ini= system provides a parser for the "ini-like" family
   of configuration syntaxes. A builder-based protocol is used to
   construct parse results.
@@ -14,11 +15,13 @@
   [[https://travis-ci.org/scymtym/parser.ini][https://travis-ci.org/scymtym/parser.ini.svg]]
 
 * Tutorial
+
   To parse a string of configuration options and return the result as
   a simple list-based structure, the =parse= function is called with
   the symbol =list= instead of a more complicated builder object:
+
   #+BEGIN_SRC lisp :results value code :exports both
-  (parser.ini:parse "[section] option = value" 'list)
+    (parser.ini:parse "[section] option = value" 'list)
   #+END_SRC
 
   #+RESULTS:
@@ -32,9 +35,10 @@
 
   Syntactic variants are controlled via special variables (note ~:~
   instead of ~=~):
+
   #+BEGIN_SRC lisp :results value code :exports both
-  (let ((parser.ini:*assignment-operator* #\:))
-    (parser.ini:parse "[section] option: value" 'list))
+    (let ((parser.ini:*assignment-operator* #\:))
+      (parser.ini:parse "[section] option: value" 'list))
   #+END_SRC
 
   #+RESULTS:
