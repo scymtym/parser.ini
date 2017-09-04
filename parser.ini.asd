@@ -1,6 +1,6 @@
 ;;;; parser.ini.asd --- System definition for the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013, 2014, 2015, 2016 Jan Moringen
+;;;; Copyright (C) 2012-2017 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -15,7 +15,8 @@
                 (:version :more-conditions               "0.1.0")
 
                 (:version :esrap                         "0.9")
-                (:version :architecture.builder-protocol "0.1"))
+                (:version :architecture.builder-protocol "0.1")
+                (:version :parser.common-rules           "0.1"))
   :encoding    :utf-8
   :components  ((:module     "src"
                  :serial     t

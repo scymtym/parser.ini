@@ -9,7 +9,9 @@
    #:cl
    #:alexandria
    #:let-plus
-   #:more-conditions)
+   #:more-conditions
+
+   #:parser.common-rules)
 
   (:import-from #:esrap
    #+esrap.grammar-class #:defgrammar

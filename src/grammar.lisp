@@ -1,6 +1,6 @@
 ;;;; grammar.lisp --- Grammar definition of the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2013, 2014, 2015 Jan Moringen
+;;;; Copyright (C) 2013, 2014, 2015, 2016, 2017 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -17,12 +17,8 @@
 #+esrap.grammar-class
 (in-grammar #:parser.ini)
 
-(defrule whitespace
-    (+ (or #\Space #\Tab #\Newline))
-  (:constant nil))
-
 (defrule comment
-    (and #\# (* (not #\Newline)))
+    shell-style-comment
   (:constant nil))
 
 ;; Quotes
@@ -68,10 +64,11 @@
         #+esrap.function-terminals name-component-separator/expression))
 
 (defrule name-component
-    (+ (or quoted (not (or comment whitespace
-                           name-component-separator
-                           #\[ #\]
-                           assignment-operator))))
+    (+ (or quoted
+           (not (or comment whitespace+
+                    name-component-separator
+                    #\[ #\]
+                    assignment-operator))))
   (:text t))
 
 (defrule name
@@ -94,7 +91,7 @@
 ;; assignment-operator/= and assignment-operator/: exist for
 ;; performance reasons.
 
-(defrule assignment-operator/whitespace whitespace
+(defrule assignment-operator/whitespace whitespace+
   (:when (eq *assignment-operator* :whitespace)))
 
 (defrule assignment-operator/= #\=
@@ -141,7 +138,7 @@
   (:text t))
 
 (defrule option
-    (and name (and (? whitespace) assignment-operator (? whitespace)) value)
+    (and name (and whitespace* assignment-operator whitespace*) value)
   (:destructure (name operator value &bounds start end)
     (declare (ignore operator))
     (list :option (architecture.builder-protocol:node*
@@ -153,7 +150,7 @@
 ;; Entry point
 
 (defrule ini
-    (* (or comment whitespace section option))
+    (* (or comment whitespace+ section option))
   (:lambda (value)
     ;; Add all options to their respective containing sections.
     (let+ ((sections (make-array 0 :adjustable t :fill-pointer 0))
