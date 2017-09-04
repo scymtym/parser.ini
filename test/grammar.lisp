@@ -1,6 +1,6 @@
 ;;;; grammar.lisp --- Unit tests for the ini grammar.
 ;;;;
-;;;; Copyright (C) 2013, 2014, 2015 Jan Moringen
+;;;; Copyright (C) 2013, 2014, 2015, 2017 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -38,6 +38,14 @@
           ((:option () :name ("baz") :value "2" :bounds (20 . 27)) . ())))
         :name   ("foo")
         :bounds (0 . 5))))
+
+     ;; [] in section name
+     ("[foo[bar]] baz=2"
+      ((:section
+        (:section-option
+         (((:option () :name ("baz") :value "2" :bounds (11 . 16)))))
+        :name   ("foo[bar]")
+        :bounds (0 . 10))))
 
      ;; Fancy escaping in names
      ("[foo.\"b\\az.fe\\\"z\"] frob.bar\".whoop.di do\"o = 1"

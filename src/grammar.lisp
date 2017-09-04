@@ -63,6 +63,7 @@
 
 (defrule name-component
     (+ (or quoted
+           (and #\[ name #\])
            (not (or comment whitespace+
                     name-component-separator
                     #\[ #\]
