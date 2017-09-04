@@ -57,6 +57,13 @@
         :name   ("foo" "b\\az.fe\"z")
         :bounds (0 . 18))))
 
+     ;; Empty value
+     ("bar = "
+      ((:section
+        (:section-option
+         (((:option () :name ("bar") :value "" :bounds (0 . 6)))))
+        :name ())))
+
      ;; Fancy escaping in values
      ("bar = \"wh\\\"o\\\\op \"di\" doo\""
       ((:section

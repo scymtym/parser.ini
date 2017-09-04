@@ -131,11 +131,13 @@
     (or value-whitespace/all value-whitespace/newline))
 
 (defrule value
-    (+ (or quoted (not (or comment section value-whitespace))))
+    (* (or quoted (not (or comment section value-whitespace))))
   (:text t))
 
 (defrule option
-    (and name (and whitespace* assignment-operator whitespace*) value)
+    (and name
+         (and whitespace* assignment-operator whitespace*)
+         value)
   (:destructure (name operator value &bounds start end)
     (declare (ignore operator))
     (list :option (architecture.builder-protocol:node*
