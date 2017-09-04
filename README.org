@@ -8,7 +8,7 @@
 * Introduction
 
   The =parser.ini= system provides a parser for the "ini-like" family
-  of configuration syntaxes. A builder-based protocol is used to
+  of configuration syntaxes. A [[https://github.com/scymtym/architecture.builder-protocol][builder-based protocol]] is used to
   construct parse results.
 
   #+ATTR_HTML: :alt "build status image" :title Build Status :align right
@@ -49,6 +49,42 @@
      (((:OPTION NIL :NAME ("option") :VALUE "value" :BOUNDS (10 . 23)))))
     :NAME ("section") :BOUNDS (0 . 9)))
   #+END_SRC
+
+  The builder-based protocol allows constructing arbitrary result
+  objects:
+
+  #+BEGIN_SRC lisp :results value :exports both
+    (defstruct located bounds)
+    (defstruct (section (:include located)) name options)
+    (defstruct (option (:include located)) name value)
+
+    (defmethod architecture.builder-protocol:make-node
+        ((builder (eql :my-builder)) (kind (eql :section)) &key name bounds)
+      (make-section :name name :bounds bounds))
+
+    (defmethod architecture.builder-protocol:relate
+        ((builder  (eql :my-builder))
+         (relation (eql :section-option))
+         (left     section)
+         (right    option)
+         &key)
+      (alexandria:appendf (section-options left) (list right))
+      left)
+
+    (defmethod architecture.builder-protocol:make-node
+        ((builder (eql :my-builder)) (kind (eql :option)) &key name value bounds)
+      (make-option :name name :value value :bounds bounds))
+
+    (parser.ini:parse "[section] option = value" :my-builder)
+  #+END_SRC
+
+  #+RESULTS:
+  : (#S(SECTION
+  :     :BOUNDS (0 . 9)
+  :     :NAME ("section")
+  :     :OPTIONS (#S(OPTION :BOUNDS (10 . 24) :NAME ("option") :VALUE "value"))))
+  : NIL
+  : T
 
 * TODO Reference
 
