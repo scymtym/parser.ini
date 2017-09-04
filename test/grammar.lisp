@@ -47,6 +47,14 @@
         :name   ("foo[bar]")
         :bounds (0 . 10))))
 
+     ;; whitespace in section name
+     ("[foo bar] baz=2"
+      ((:section
+        (:section-option
+         (((:option () :name ("baz") :value "2" :bounds (10 . 15)))))
+        :name   ("foo bar")
+        :bounds (0 . 9))))
+
      ;; Fancy escaping in names
      ("[foo.\"b\\az.fe\\\"z\"] frob.bar\".whoop.di do\"o = 1"
       ((:section
@@ -56,6 +64,13 @@
            . ())))
         :name   ("foo" "b\\az.fe\"z")
         :bounds (0 . 18))))
+
+     ;; whitespace in option name
+     ("foo bar = "
+      ((:section
+        (:section-option
+         (((:option () :name ("foo bar") :value "" :bounds (0 . 10)))))
+        :name ())))
 
      ;; Empty value
      ("bar = "

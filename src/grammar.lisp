@@ -64,10 +64,10 @@
 (defrule name-component
     (+ (or quoted
            (and #\[ name #\])
-           (not (or comment whitespace+
+           (not (or comment
                     name-component-separator
                     #\[ #\]
-                    assignment-operator))))
+                    (and whitespace* assignment-operator)))))
   (:text t))
 
 (defrule name
