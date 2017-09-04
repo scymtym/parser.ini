@@ -44,7 +44,6 @@
     #\:
   (:when (eql *name-component-separator* #\:)))
 
-#+esrap.function-terminals
 (eval-when (:compile-toplevel :load-toplevel :execute) ; avoid warning
   (defun parse-name-component-separator/expression (text start end)
     (esrap:parse *name-component-separator* text
@@ -53,7 +52,6 @@
                  :start start :end end
                  :junk-allowed t)))
 
-#+esrap.function-terminals
 (defrule name-component-separator/expression
     #'parse-name-component-separator/expression
   (:when (not (member *name-component-separator* '(#\. #\: nil)))))
@@ -61,7 +59,7 @@
 (defrule name-component-separator
     (or name-component-separator/.
         |name-component-separator/:|
-        #+esrap.function-terminals name-component-separator/expression))
+        name-component-separator/expression))
 
 (defrule name-component
     (+ (or quoted
@@ -81,8 +79,8 @@
 
 (defrule section
     (and #\[ name #\])
-  (:destructure (open name close &bounds start end)
-    (declare (ignore open close))
+  (:function second)
+  (:lambda (name &bounds start end)
     (list :section (list name (cons start end)))))
 
 ;; Assignment variants
@@ -100,7 +98,6 @@
 (defrule |assignment-operator/:| #\:
   (:when (eql *assignment-operator* #\:)))
 
-#+esrap.function-terminals
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun parse-assignment-operator/expression (text start end)
     (esrap:parse *assignment-operator* text
@@ -109,7 +106,6 @@
                  :start start :end end
                  :junk-allowed t)))
 
-#+esrap.function-terminals
 (defrule assignment-operator/expression
     #'parse-assignment-operator/expression
   (:when (not (member *assignment-operator* '(:whitespace #\. #\:)))))
@@ -118,7 +114,7 @@
     (or assignment-operator/whitespace
         assignment-operator/=
         |assignment-operator/:|
-        #+esrap.function-terminals assignment-operator/expression))
+        assignment-operator/expression))
 
 ;; Options
 

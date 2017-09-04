@@ -14,7 +14,7 @@
                 (:version :let-plus                      "0.2")
                 (:version :more-conditions               "0.1.0")
 
-                (:version :esrap                         "0.9")
+                (:version :esrap                         "0.15")
                 (:version :architecture.builder-protocol "0.1")
                 (:version :parser.common-rules           "0.1"))
   :encoding    :utf-8
