@@ -12,9 +12,10 @@
   "Smoke test for the ini grammar."
 
   (mapc
-   (lambda+ ((input expected))
+   (lambda+ ((input expected &rest args))
      (let+ ((input (format nil input))
-            ((&flet do-it () (parse input 'list))))
+            ((&flet do-it ()
+               (apply #'parse input 'list args))))
        (case expected
          (ini-parse-error (signals ini-parse-error (do-it)))
          (t               (is (equal expected (do-it)))))))
@@ -36,6 +37,12 @@
         (:section-option (((:option () :name ("foo") :value "" :bounds (0 . 4)) . ())
                           ((:option () :name ("bar") :value "1" :bounds (5 . 10) . ()))))
         :name ())))
+
+     ;; Junk not parsed as name of option
+     ("bar: baz
+       fez: whoop=>1"
+      nil
+      :junk-allowed t)
 
      ;; Comment after value
      ("foo = 1 # comment"

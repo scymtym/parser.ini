@@ -65,6 +65,7 @@
     (+ (or quoted
            (and #\[ name #\])
            (not (or comment
+                    #\Newline
                     name-component-separator
                     #\[ #\]
                     (and whitespace* assignment-operator)))))
