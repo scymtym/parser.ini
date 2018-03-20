@@ -1,6 +1,6 @@
 ;;;; package.lisp --- Package definition for parser.ini system.
 ;;;;
-;;;; Copyright (C) 2013, 2014, 2015, 2016 Jan Moringen
+;;;; Copyright (C) 2013-2018 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -17,7 +17,7 @@
    #+esrap.grammar-class #:defgrammar
    #+esrap.grammar-class #:in-grammar
    #:defrule #:&bounds
-   #:?
+   #:? #:!
    #:text)
 
   ;; Conditions

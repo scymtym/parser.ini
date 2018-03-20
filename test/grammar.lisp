@@ -24,6 +24,19 @@
      ("# # comment"  nil) ; Comment in comment
      ("# no content" nil) ; Comment without content
 
+     ;; Empty value
+     ("foo="
+      ((:section
+        (:section-option (((:option () :name ("foo") :value "" :bounds (0 . 4)))
+                          . ()))
+        :name ())))
+     ("foo=~@
+       bar=1"
+      ((:section
+        (:section-option (((:option () :name ("foo") :value "" :bounds (0 . 4)) . ())
+                          ((:option () :name ("bar") :value "1" :bounds (5 . 10) . ()))))
+        :name ())))
+
      ;; Comment after value
      ("foo = 1 # comment"
       ((:section

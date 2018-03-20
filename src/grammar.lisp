@@ -1,6 +1,6 @@
 ;;;; grammar.lisp --- Grammar definition of the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2013, 2014, 2015, 2016, 2017 Jan Moringen
+;;;; Copyright (C) 2013-2018 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -136,7 +136,9 @@
 
 (defrule option
     (and name
-         (and whitespace* assignment-operator whitespace*)
+         (and whitespace*
+              assignment-operator
+              (* (and (! #\Newline) whitespace)))
          value)
   (:destructure (name operator value &bounds start end)
     (declare (ignore operator))
