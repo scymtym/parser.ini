@@ -1,6 +1,6 @@
 ;;;; grammar.lisp --- Unit tests for the ini grammar.
 ;;;;
-;;;; Copyright (C) 2013, 2014, 2015, 2017 Jan Moringen
+;;;; Copyright (C) 2013-2018 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -13,7 +13,8 @@
 
   (mapc
    (lambda+ ((input expected))
-     (let+ (((&flet do-it () (parse input 'list))))
+     (let+ ((input (format nil input))
+            ((&flet do-it () (parse input 'list))))
        (case expected
          (ini-parse-error (signals ini-parse-error (do-it)))
          (t               (is (equal expected (do-it)))))))
@@ -88,26 +89,26 @@
         :name ())))
 
      ;; Multiple lines
-     ("a.b=1
-       a=2
-       # comment
-       [a]
-       c = 3
-       [d]
+     ("a.b=1~@
+       a=2~@
+       # comment~@
+       [a]~@
+       c = 3~@
+       [d]~@
        e = 4"
       ((:section
         (:section-option
          (((:option () :name ("a" "b") :value "1" :bounds (0 . 5)) . ())
-          ((:option () :name ("a") :value "2" :bounds (13 . 16)) . ())))
+          ((:option () :name ("a") :value "2" :bounds (6 . 9)) . ())))
         :name ())
        (:section
         (:section-option
-         (((:option () :name ("c") :value "3" :bounds (52 . 57)) . ())))
-        :name ("a") :bounds (41 . 44))
+         (((:option () :name ("c") :value "3" :bounds (24 . 29)) . ())))
+        :name ("a") :bounds (20 . 23))
        (:section
         (:section-option
-         (((:option () :name ("e") :value "4" :bounds (76 . 81)) . ())))
-        :name ("d") :bounds (65 . 68)))))))
+         (((:option () :name ("e") :value "4" :bounds (34 . 39)) . ())))
+        :name ("d") :bounds (30 . 33)))))))
 
 (test grammar.name-component-separator
   "Tests controlling name component separator via special variable."
