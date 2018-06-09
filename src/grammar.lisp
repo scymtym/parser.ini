@@ -155,26 +155,31 @@
     (* (or comment whitespace+ section option))
   (:lambda (value)
     ;; Add all options to their respective containing sections.
-    (let+ ((sections (make-array 0 :adjustable t :fill-pointer 0))
+    (let+ ((sections      (make-array 0 :adjustable t :fill-pointer 0))
            (section-names (make-hash-table :test #'equal))
            ((&flet+ ensure-section ((name bounds))
               (aref sections
-                    (ensure-gethash name section-names
-                                    (vector-push-extend
-                                     (apply #'architecture.builder-protocol:make-node*
-                                            :section
-                                            :name name
-                                            (when bounds
-                                              (list :bounds bounds)))
-                                     sections)))))
+                    (ensure-gethash
+                     name section-names
+                     (vector-push-extend
+                      (apply #'architecture.builder-protocol:make-node*
+                             :section
+                             :name name
+                             (when bounds
+                               (list :bounds bounds)))
+                      sections)))))
            (current-section-info '(() nil)))
       (mapc (lambda+ ((&optional kind node))
               (ecase kind
-                ((nil)    ) ; comment and whitespace
-                (:section (setf current-section-info node))
-                (:option  (let ((section (ensure-section current-section-info)))
-                            (architecture.builder-protocol:relate*
-                             :section-option section node)))))
+                ((nil)) ; comment and whitespace
+                (:section
+                 (setf current-section-info node)
+                 (when *include-empty-sections?*
+                   (ensure-section current-section-info)))
+                (:option
+                 (let ((section (ensure-section current-section-info)))
+                   (architecture.builder-protocol:relate*
+                    :section-option section node)))))
             value)
       (map 'list (curry #'architecture.builder-protocol:finish-node* :section)
            sections))))

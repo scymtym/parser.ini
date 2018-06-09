@@ -31,7 +31,8 @@
   (:export
    #:*name-component-separator*
    #:*assignment-operator*
-   #:*value-terminating-whitespace-expression*)
+   #:*value-terminating-whitespace-expression*
+   #:*include-empty-sections?*)
 
   ;; Parser protocol
   (:export

@@ -159,3 +159,30 @@
         (:section-option
          (((:option () :name ("baz.fez") :value "1" :bounds (10 . 21)) . ())))
         :name ("foo" "bar") :bounds (0 . 9)))))))
+
+(test grammar.include-empty-sections
+  "Tests controlling the behavior for empty sections via special
+   variable."
+
+  (mapc
+   (lambda+ ((include? input expected))
+     (let ((*include-empty-sections?* include?))
+       (is (equal expected (parse input 'list)))))
+
+   '((nil "[foo]"
+      ())
+
+     (nil "[foo] bar = 1 "
+      ((:section
+        (:section-option
+         (((:option () :name ("bar") :value "1" :bounds (6 . 13)) . ())))
+        :name ("foo") :bounds (0 . 5))))
+
+     (t   "[foo]"
+      ((:section () :name ("foo") :bounds (0 . 5))))
+
+     (t   "[foo] bar = 1 "
+      ((:section
+        (:section-option
+         (((:option () :name ("bar") :value "1" :bounds (6 . 13)) . ())))
+        :name ("foo") :bounds (0 . 5)))))))

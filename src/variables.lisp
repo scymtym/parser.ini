@@ -1,6 +1,6 @@
 ;;;; variables.lisp --- Variables used by the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013, 2014, 2015, 2016 Jan Moringen
+;;;; Copyright (C) 2012-2018 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -26,3 +26,11 @@
 
    For some values of this variable, quoting has to be used when
    whitespace in option values is required.")
+
+(defvar *include-empty-sections?* nil
+  "Controls whether empty sections, i.e. \"section\" in
+
+     [section]
+     [next section]
+
+   should be included in the parse result.")
