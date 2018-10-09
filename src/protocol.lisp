@@ -1,6 +1,6 @@
 ;;;; protocol.lisp --- Protocol provided by the parser.ini system.
 ;;;;
-;;;; Copyright (C) 2012, 2013, 2014, 2015, 2016 Jan Moringen
+;;;; Copyright (C) 2012-2018 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -33,7 +33,7 @@
     :var condition)
    :source   source
    :location (when (esrap:esrap-error-position condition)
-               (esrap:esrap-error-position condition)))
+               (cons (esrap:esrap-error-position condition) nil)))
   ((error ini-parse-error)
    :source source))
 

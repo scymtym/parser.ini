@@ -14,7 +14,8 @@
              "Stores the source string in which the parse error
               occurred.")
    (location :initarg  :location
-             :type     (or null cons)
+             :type     (or null (cons non-negative-integer
+                                      (or null non-negative-integer)))
              :reader   ini-parse-error-location
              :initform nil
              :documentation
@@ -28,10 +29,13 @@
    :source (missing-required-initarg 'ini-parse-error :source))
   (:report
    (lambda (condition stream)
-     (format stream "~@<Could not parse ~D of ~
-                     ~S~/more-conditions:maybe-print-cause/~@:>"
-             (ini-parse-error-location condition)
-             (ini-parse-error-source condition)
-             condition)))
+     (let ((source   (ini-parse-error-source condition))
+           (location (ini-parse-error-location condition)))
+       (format stream "~@<Could not parse~:[~3*~; character~:[~;s~] ~
+                       ~D~@[ to ~D~] of~] ~S ~
+                       ~/more-conditions:maybe-print-cause/~@:>"
+               location (cdr location) (car location) (cdr location)
+               source
+               condition))))
   (:documentation
    "This error is signaled when parsing ini input fails."))
