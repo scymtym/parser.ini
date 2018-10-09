@@ -33,8 +33,9 @@
     :NAME ("section") :BOUNDS (0 . 9)))
   #+END_SRC
 
-  Syntactic variants are controlled via special variables (note ~:~
-  instead of ~=~):
+  Syntactic variants (comments, assignment operator, interpretation of
+  whitespace in values, etc.) are controlled via special variables
+  (note ~:~ instead of ~=~):
 
   #+BEGIN_SRC lisp :results value code :exports both
     (let ((parser.ini:*assignment-operator* #\:))

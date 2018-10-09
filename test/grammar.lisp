@@ -130,6 +130,30 @@
          (((:option () :name ("e") :value "4" :bounds (34 . 39)) . ())))
         :name ("d") :bounds (30 . 33)))))))
 
+(test grammar.comment-starter
+  "Tests controlling comment starter via special variable."
+
+  (mapc
+   (lambda+ ((comment-starter input expected))
+     (let+ (((&flet do-it ()
+               (let ((*comment-starter* comment-starter))
+                 (parse input 'list)))))
+       (case expected
+         (ini-parse-error (signals ini-parse-error (do-it)))
+         (t               (is (equal expected (do-it)))))))
+
+   '(;; Disallow comments
+     (nil "; comment" ini-parse-error)
+     (nil "# comment" ini-parse-error)
+
+     ;; ";" starts comments
+     (#\; "; comment" ())
+     (#\; "# comment" ini-parse-error)
+
+     ;; "#" starts comments
+     (#\# "; comment" ini-parse-error)
+     (#\# "# comment" ()))))
+
 (test grammar.name-component-separator
   "Tests controlling name component separator via special variable."
 

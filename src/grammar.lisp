@@ -17,9 +17,18 @@
 #+esrap.grammar-class
 (in-grammar #:parser.ini)
 
-(defrule comment
+(defrule comment/shell-style
     shell-style-comment
-  (:constant nil))
+  (:constant nil)
+  (:when (eql *comment-starter* #\#)))
+
+(defrule comment/semicolon
+    lisp-style-comment
+  (:constant nil)
+  (:when (eql *comment-starter* #\;)))
+
+(defrule comment
+    (or comment/shell-style comment/semicolon))
 
 ;; Quotes
 

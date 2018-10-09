@@ -8,6 +8,14 @@
 
 ;;; Syntax variation selectors
 
+(defvar *comment-starter* #\#
+  "Controls which character starts a comment. The default is #\#.
+
+   If bound to either #\# or #\;, the respective character turns the
+   rest of the current line into a comment.
+
+   If bound to `nil', comments are disallowed.")
+
 (defvar *name-component-separator* #\.
   "Controls the syntax for separating name components. The default
    is the character \".\".

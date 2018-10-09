@@ -29,6 +29,7 @@
 
   ;; Variables
   (:export
+   #:*comment-starter*
    #:*name-component-separator*
    #:*assignment-operator*
    #:*value-terminating-whitespace-expression*
@@ -64,6 +65,10 @@
 
     Syntactic variants can be controlled by binding the special
     variables
+
+    *comment-starter*                   [special variable]
+
+      Controls which character initiates a comment. Defaults to \"#\".
 
     *assignment-expression*             [special variable]
 
